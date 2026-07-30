@@ -12,20 +12,20 @@
     --bg-dark: #06110D;
     --card-bg: #0C1A14;
     --card-border: #183025;
-    
+
     --emerald: #10B981;
     --emerald-glow: rgba(16, 185, 129, 0.25);
     --gold: #F59E0B;
     --gold-light: #FCD34D;
     --gold-glow: rgba(245, 158, 11, 0.2);
-    
+
     --text-primary: #F3F4F6;
     --text-secondary: #9CA3AF;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { scroll-behavior: smooth; }
-  
+
   body {
     background-color: var(--bg-dark);
     color: var(--text-primary);
@@ -37,14 +37,36 @@
   #loader {
     position: fixed; inset: 0; background: #030806; z-index: 9999;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    animation: fadeOutLoader 1s ease 1.5s forwards;
+    animation: fadeOutLoader 0.8s ease 1.6s forwards;
   }
+  .loader-ring-wrap { position: relative; width: 70px; height: 70px; }
   .loader-ring {
-    width: 60px; height: 60px; border: 3px solid transparent;
+    position: absolute; inset: 0;
+    border: 3px solid transparent;
     border-top-color: var(--gold); border-right-color: var(--emerald);
     border-radius: 50%; animation: spin 1s linear infinite;
   }
-  .loader-text { margin-top: 15px; font-family: 'Cinzel', serif; letter-spacing: 2px; color: var(--gold-light); font-size: 14px; }
+  .loader-ring.r2 {
+    inset: 10px;
+    border-top-color: transparent; border-right-color: transparent;
+    border-bottom-color: var(--gold-light); border-left-color: var(--emerald);
+    animation: spin 1.4s linear infinite reverse;
+  }
+  .loader-text {
+    margin-top: 18px; font-family: 'Cinzel', serif; letter-spacing: 3px; color: var(--gold-light);
+    font-size: 14px; opacity: 0; animation: loaderTextIn 0.8s ease 0.3s forwards;
+  }
+  .loader-bar {
+    margin-top: 14px; width: 140px; height: 2px; background: var(--card-border);
+    border-radius: 2px; overflow: hidden; position: relative;
+  }
+  .loader-bar::after {
+    content: ''; position: absolute; inset: 0; width: 40%; border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--emerald), var(--gold), transparent);
+    animation: barSweep 1.1s ease-in-out infinite;
+  }
+  @keyframes barSweep { 0% { left: -40%; } 100% { left: 100%; } }
+  @keyframes loaderTextIn { to { opacity: 1; letter-spacing: 4px; } }
   @keyframes spin { 100% { transform: rotate(360deg); } }
   @keyframes fadeOutLoader { to { opacity: 0; visibility: hidden; } }
 
@@ -56,11 +78,44 @@
     position: fixed; width: 350px; height: 350px; border-radius: 50%;
     background: radial-gradient(circle, var(--emerald-glow) 0%, transparent 70%);
     top: -50px; left: -50px; pointer-events: none; z-index: 0;
+    animation: floatGlow1 14s ease-in-out infinite;
   }
   .bg-glow-gold {
     position: fixed; width: 300px; height: 300px; border-radius: 50%;
     background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
     bottom: -50px; right: -50px; pointer-events: none; z-index: 0;
+    animation: floatGlow2 16s ease-in-out infinite;
+  }
+  .bg-glow-3 {
+    position: fixed; width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+    top: 45%; left: 60%; pointer-events: none; z-index: 0;
+    animation: floatGlow3 20s ease-in-out infinite;
+  }
+  @keyframes floatGlow1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, 60px) scale(1.15); }
+  }
+  @keyframes floatGlow2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-30px, -50px) scale(1.1); }
+  }
+  @keyframes floatGlow3 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    50% { transform: translate(-60px, 40px) scale(1.2); opacity: 1; }
+  }
+
+  /* Twinkling particles */
+  .particle {
+    position: fixed; z-index: 1; border-radius: 50%; pointer-events: none;
+    background: var(--gold-light); opacity: 0;
+    animation: twinkle linear infinite;
+  }
+  @keyframes twinkle {
+    0% { opacity: 0; transform: translateY(0) scale(0.6); }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.5; }
+    100% { opacity: 0; transform: translateY(-120px) scale(1); }
   }
 
   /* NAVBAR */
@@ -68,63 +123,128 @@
     position: fixed; top: 0; width: 100%; z-index: 100;
     background: rgba(6, 17, 13, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--card-border);
+    transform: translateY(-100%);
+    animation: navDrop 0.7s cubic-bezier(.2,.8,.2,1) 1.5s forwards;
   }
+  @keyframes navDrop { to { transform: translateY(0); } }
   nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 65px; }
   .logo { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; color: var(--gold); }
-  .logo span { color: var(--emerald); }
+  .logo span { color: var(--emerald); display: inline-block; animation: dotPulse 2s ease-in-out infinite; }
+  @keyframes dotPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4); } }
   nav ul { display: flex; gap: 15px; list-style: none; }
-  nav a { color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; transition: 0.3s; }
+  nav a {
+    color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500;
+    transition: 0.3s; position: relative; padding-bottom: 3px;
+  }
+  nav a::after {
+    content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 1px;
+    background: var(--gold-light); transition: width 0.3s ease;
+  }
   nav a:hover { color: var(--gold-light); }
+  nav a:hover::after { width: 100%; }
 
   /* HERO SECTION */
   header.hero { padding: 120px 0 60px; text-align: center; }
   .hero-grid { display: flex; flex-direction: column-reverse; gap: 30px; align-items: center; }
-  
+
+  .reveal-up { opacity: 0; transform: translateY(24px); animation: revealUp 0.8s cubic-bezier(.2,.8,.2,1) forwards; }
+  @keyframes revealUp { to { opacity: 1; transform: translateY(0); } }
+
   .badge {
     display: inline-block; padding: 6px 16px; border-radius: 30px;
     background: rgba(16, 185, 129, 0.1); border: 1px solid var(--emerald);
     color: var(--emerald); font-size: 12px; margin-bottom: 15px; font-weight: 600;
+    animation-delay: 1.7s;
+    position: relative; overflow: hidden;
   }
-  .hero h1 { font-family: 'Cinzel', serif; font-size: 32px; line-height: 1.25; margin-bottom: 15px; }
-  .gold-gradient {
-    background: linear-gradient(135deg, var(--gold-light), var(--gold));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  .badge::before {
+    content: ''; position: absolute; top:0; left:-60%; width: 40%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+    animation: badgeSheen 3.2s ease-in-out infinite;
+    animation-delay: 2.6s;
   }
-  .hero p { color: var(--text-secondary); font-size: 14px; margin-bottom: 25px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto; }
+  @keyframes badgeSheen { 0% { left: -60%; } 60%, 100% { left: 130%; } }
+  .badge-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--emerald); margin-right: 6px; box-shadow: 0 0 6px var(--emerald);
+    animation: dotBlink 1.6s ease-in-out infinite;
+  }
+  @keyframes dotBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-  .btn-group { display: flex; gap: 12px; justify-content: center; width: 100%; }
+  .hero h1 { font-family: 'Cinzel', serif; font-size: 32px; line-height: 1.25; margin-bottom: 15px; animation-delay: 1.85s; }
+  .gold-gradient {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-light));
+    background-size: 200% auto;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shineText 4s linear infinite;
+  }
+  @keyframes shineText { to { background-position: 200% center; } }
+  .hero p { color: var(--text-secondary); font-size: 14px; margin-bottom: 25px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto; animation-delay: 2.0s; }
+
+  .btn-group { display: flex; gap: 12px; justify-content: center; width: 100%; opacity: 0; animation: revealUp 0.8s cubic-bezier(.2,.8,.2,1) 2.15s forwards; }
   .btn {
     flex: 1; max-width: 170px; padding: 12px 20px; border-radius: 30px; font-weight: 600; text-decoration: none;
-    transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; font-size: 13px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 13px;
+    position: relative;
   }
   .btn-gold {
     background: linear-gradient(135deg, var(--gold), #D97706); color: #000;
     box-shadow: 0 4px 15px var(--gold-glow);
+    animation: pulseGlow 2.6s ease-in-out infinite;
   }
-  .btn-gold:active { transform: scale(0.98); }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 4px 15px var(--gold-glow); }
+    50% { box-shadow: 0 4px 26px rgba(245,158,11,0.45); }
+  }
+  .btn-gold:hover { transform: translateY(-3px) scale(1.03); }
+  .btn-gold:active { transform: scale(0.97); }
   .btn-outline {
     border: 1px solid var(--card-border); color: var(--text-primary); background: var(--card-bg);
   }
-  .btn-outline:active { border-color: var(--emerald); color: var(--emerald); transform: scale(0.98); }
+  .btn-outline:hover { border-color: var(--emerald); color: var(--emerald); transform: translateY(-3px); }
+  .btn-outline:active { transform: scale(0.97); }
 
   /* Hero Image Circle Frame */
   .hero-img-wrapper {
     position: relative; width: 220px; height: 220px; margin: 0 auto;
+    opacity: 0; animation: heroImgIn 0.9s cubic-bezier(.2,.8,.2,1) 1.6s forwards;
   }
+  @keyframes heroImgIn { from { opacity: 0; transform: scale(0.7) rotate(-8deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
   .hero-img-wrapper::before {
     content: ''; position: absolute; inset: -6px; border-radius: 50%;
     border: 2px dashed var(--gold); animation: spin 25s linear infinite;
   }
+  .hero-img-wrapper::after {
+    content: ''; position: absolute; inset: -16px; border-radius: 50%;
+    border: 1px solid var(--emerald-glow); animation: ringPulse 3s ease-in-out infinite;
+  }
+  @keyframes ringPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.08); opacity: 0.15; }
+  }
   .hero-img-box {
     width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
     border: 3px solid var(--emerald); box-shadow: 0 0 25px var(--emerald-glow);
+    animation: floatBob 4.5s ease-in-out infinite;
   }
-  .hero-img-box img { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes floatBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .hero-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .hero-img-wrapper:hover .hero-img-box img { transform: scale(1.12); }
 
   /* SECTION BASE */
   section { padding: 60px 0; border-top: 1px solid var(--card-border); }
-  .section-title { font-family: 'Cinzel', serif; font-size: 26px; color: var(--gold-light); margin-bottom: 8px; text-align: center; }
+  .section-title {
+    font-family: 'Cinzel', serif; font-size: 26px; color: var(--gold-light); margin-bottom: 8px; text-align: center;
+  }
   .section-sub { color: var(--text-secondary); margin-bottom: 30px; font-size: 13px; text-align: center; }
+
+  /* Scroll reveal (JS-driven) */
+  .sr {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(.2,.8,.2,1), transform 0.7s cubic-bezier(.2,.8,.2,1);
+  }
+  .sr.is-visible { opacity: 1; transform: translateY(0); }
 
   /* SKILLS SECTION */
   .skills-grid {
@@ -133,12 +253,20 @@
   .skill-box {
     background: var(--card-bg); border: 1px solid var(--card-border);
     padding: 20px 12px; border-radius: 14px; text-align: center;
-    transition: 0.3s;
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), border-color 0.3s, background 0.3s, box-shadow 0.3s;
   }
-  .skill-box .icon { font-size: 28px; margin-bottom: 8px; display: block; }
+  .skill-box .icon {
+    font-size: 28px; margin-bottom: 8px; display: block;
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  }
   .skill-box h3 { font-size: 14px; color: var(--text-primary); margin-bottom: 4px; }
   .skill-box p { font-size: 11px; color: var(--text-secondary); }
-  .skill-box:active { border-color: var(--gold); background: #0F221A; }
+  .skill-box:hover {
+    border-color: var(--gold); background: #0F221A; transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+  }
+  .skill-box:hover .icon { transform: scale(1.25) rotate(-8deg); }
+  .skill-box:active { transform: translateY(-2px) scale(0.98); }
 
   /* STATS SECTION */
   .stats-grid {
@@ -147,28 +275,37 @@
   .stat-card {
     background: linear-gradient(145deg, var(--card-bg), #08140E);
     border: 1px solid var(--card-border); padding: 25px 15px; border-radius: 14px; text-align: center;
+    transition: transform 0.35s ease, border-color 0.35s ease;
   }
+  .stat-card:hover { transform: translateY(-5px); border-color: var(--emerald); }
   .stat-number { font-family: 'Cinzel', serif; font-size: 32px; font-weight: 700; color: var(--gold-light); }
   .stat-label { color: var(--text-secondary); font-size: 13px; margin-top: 4px; }
 
   /* ABOUT SECTION */
   .about-content { text-align: center; line-height: 1.7; color: var(--text-secondary); font-size: 14px; padding: 0 10px; }
+  .about-content strong { color: var(--gold-light); }
 
   /* CONTACT SECTION */
   .contact-section { background: linear-gradient(180deg, var(--bg-dark) 0%, #030B07 100%); }
-  
+
   .contact-info-cards {
     display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 35px;
   }
   .info-card {
     background: #FFFFFF; color: #111; padding: 20px; border-radius: 14px; text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2); text-decoration: none; display: block; transition: 0.3s;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2); text-decoration: none; display: block;
+    transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease;
   }
+  .info-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 14px 30px rgba(16,185,129,0.25); }
+  .info-card:active { transform: translateY(-2px) scale(0.99); }
   .info-card .icon-wrap {
     width: 42px; height: 42px; background: rgba(16, 185, 129, 0.12); border-radius: 50%;
     display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
+    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), background 0.3s;
   }
-  .info-card .icon-wrap svg { width: 20px; height: 20px; fill: var(--emerald); }
+  .info-card:hover .icon-wrap { transform: rotate(360deg) scale(1.1); background: rgba(245,158,11,0.18); }
+  .info-card .icon-wrap svg { width: 20px; height: 20px; fill: var(--emerald); transition: fill 0.3s; }
+  .info-card:hover .icon-wrap svg { fill: var(--gold); }
   .info-card h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 4px; }
   .info-card p { font-size: 13px; font-weight: 600; color: #111; word-break: break-all; }
 
@@ -183,16 +320,19 @@
   .contact-form input, .contact-form textarea {
     width: 100%; background: transparent; border: none; border-bottom: 1.5px solid var(--card-border);
     padding: 10px 0; color: var(--text-primary); font-family: inherit; font-size: 14px; outline: none;
-    border-radius: 0;
+    border-radius: 0; transition: border-color 0.3s ease;
   }
   .contact-form input:focus, .contact-form textarea:focus { border-color: var(--gold); }
 
   .submit-btn {
     width: 100%; padding: 14px; border-radius: 30px; border: none;
     background: #FFFFFF; color: #000; font-weight: 700; font-size: 13px; letter-spacing: 1px;
-    cursor: pointer; transition: 0.3s; margin-top: 10px;
+    cursor: pointer; transition: transform 0.25s ease, background 0.3s ease, box-shadow 0.25s ease; margin-top: 10px;
+    position: relative; overflow: hidden;
   }
+  .submit-btn:hover { box-shadow: 0 8px 20px rgba(245,158,11,0.25); }
   .submit-btn:active { background: var(--gold-light); transform: scale(0.98); }
+  .submit-btn.sent { background: var(--emerald); color: #fff; }
 
   .get-in-touch { text-align: center; }
   .get-in-touch h3 { font-family: 'Cinzel', serif; font-size: 26px; color: var(--gold-light); margin-bottom: 10px; }
@@ -202,14 +342,32 @@
   .social-icons-row { display: flex; gap: 15px; justify-content: center; }
   .social-icon-btn {
     width: 46px; height: 46px; border-radius: 50%; background: var(--bg-dark); border: 1px solid var(--card-border);
-    display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;
+    display: flex; align-items: center; justify-content: center; text-decoration: none;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), border-color 0.3s, background 0.3s;
   }
-  .social-icon-btn svg { width: 22px; height: 22px; fill: var(--text-primary); }
-  .social-icon-btn:hover, .social-icon-btn:active { border-color: var(--gold); background: var(--card-bg); }
+  .social-icon-btn svg { width: 22px; height: 22px; fill: var(--text-primary); transition: fill 0.3s; }
+  .social-icon-btn:hover { border-color: var(--gold); background: var(--card-bg); transform: translateY(-5px) scale(1.1); }
   .social-icon-btn:hover svg { fill: var(--gold-light); }
+  .social-icon-btn:active { transform: translateY(-2px) scale(0.95); }
 
   /* FOOTER */
   footer { padding: 20px 0; text-align: center; border-top: 1px solid var(--card-border); color: var(--text-secondary); font-size: 12px; }
+  .heart { display: inline-block; color: var(--gold); animation: heartBeat 1.4s ease-in-out infinite; }
+  @keyframes heartBeat { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.25); } 50% { transform: scale(1); } }
+
+  /* Staggered children helper (applied via JS index delay) */
+  .stagger-child { transition-delay: calc(var(--i, 0) * 90ms); }
+
+  /* Back to top */
+  #toTop {
+    position: fixed; right: 18px; bottom: 18px; width: 46px; height: 46px; border-radius: 50%;
+    background: var(--card-bg); border: 1px solid var(--card-border); color: var(--gold-light);
+    display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 90;
+    text-decoration: none; opacity: 0; pointer-events: none; transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  }
+  #toTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  #toTop:hover { border-color: var(--gold); }
 
   /* DESKTOP RESPONSIVE BREAKPOINT */
   @media (min-width: 768px) {
@@ -228,19 +386,35 @@
     .social-icons-row { justify-content: flex-start; }
     .section-title { font-size: 34px; }
   }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .reveal-up, .sr { opacity: 1 !important; transform: none !important; }
+  }
 </style>
 </head>
 <body>
 
 <!-- PRELOADER -->
 <div id="loader">
-  <div class="loader-ring"></div>
+  <div class="loader-ring-wrap">
+    <div class="loader-ring"></div>
+    <div class="loader-ring r2"></div>
+  </div>
   <div class="loader-text">BAYZID HASAN</div>
+  <div class="loader-bar"></div>
 </div>
 
 <!-- BACKGROUND GLOWS -->
 <div class="bg-glow"></div>
 <div class="bg-glow-gold"></div>
+<div class="bg-glow-3"></div>
 
 <!-- NAVBAR -->
 <nav>
@@ -259,186 +433,5 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="badge">Available for Web Projects</span>
-      <h1>Hey, I'm <span class="gold-gradient">Bayzid</span><br>Frontend Developer</h1>
-      <p>I help clients and businesses build high-performance, modern, and interactive web applications that users love.</p>
-      <div class="btn-group">
-        <a href="#contact" class="btn btn-gold">Get In Touch</a>
-        <a href="#skills" class="btn btn-outline">Browse Skills</a>
-      </div>
-    </div>
-    
-    <!-- Profile Photo -->
-    <div class="hero-img-wrapper">
-      <div class="hero-img-box">
-        <img src="IMG_20260605_170113_063.jpg" alt="HM Bayzid Hasan">
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- SKILLS SECTION -->
-<section id="skills">
-  <div class="wrap">
-    <h2 class="section-title">Skills &amp; Expertise</h2>
-    <p class="section-sub">Technologies and methodologies I master to build top-tier websites.</p>
-
-    <div class="skills-grid">
-      <div class="skill-box">
-        <span class="icon">⚡</span>
-        <h3>Problem Solving</h3>
-        <p>Logic &amp; Strategy</p>
-      </div>
-      <div class="skill-box">
-        <span class="icon">💻</span>
-        <h3>HTML5 &amp; CSS3</h3>
-        <p>Structure &amp; Style</p>
-      </div>
-      <div class="skill-box">
-        <span class="icon">🚀</span>
-        <h3>JavaScript</h3>
-        <p>ES6+ &amp; Dynamics</p>
-      </div>
-      <div class="skill-box">
-        <span class="icon">⚛️</span>
-        <h3>React.js</h3>
-        <p>Component UI</p>
-      </div>
-      <div class="skill-box">
-        <span class="icon">🎨</span>
-        <h3>Tailwind CSS</h3>
-        <p>Modern Styling</p>
-      </div>
-      <div class="skill-box">
-        <span class="icon">📱</span>
-        <h3>Responsive UI</h3>
-        <p>All Screen Sizes</p>
-      </div>
-      <div class="skill-box">
-        <span class="icon">🛠️</span>
-        <h3>Git &amp; GitHub</h3>
-        <p>Version Control</p>
-      </div>
-      <div class="skill-box">
-        <span class="icon">🔥</span>
-        <h3>Performance</h3>
-        <p>Speed &amp; SEO</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS SECTION -->
-<section id="stats">
-  <div class="wrap">
-    <h2 class="section-title">Milestones</h2>
-    <p class="section-sub">Proven track record of delivering successful digital solutions.</p>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-number">$5,000+</div>
-        <div class="stat-label">Total Earned</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">10+</div>
-        <div class="stat-label">Completed Projects</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Client Satisfaction</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT SECTION -->
-<section id="about">
-  <div class="wrap">
-    <h2 class="section-title">About Me</h2>
-    <p class="section-sub">Passionate developer focused on quality &amp; precision</p>
-
-    <div class="about-content">
-      <p>I am <strong>HM Bayzid Hasan</strong>, a dedicated Frontend Developer from Bangladesh. With a strong passion for technology and design, I specialize in crafting elegant, responsive, and user-centric web experiences. Over my journey, I have completed over 10+ projects and earned $5,000+ through freelance engineering.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT SECTION -->
-<section id="contact" class="contact-section">
-  <div class="wrap">
-    
-    <!-- Top 4 Info Cards -->
-    <div class="contact-info-cards">
-      <div class="info-card">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        </div>
-        <h4>Main Location</h4>
-        <p>Bangladesh</p>
-      </div>
-
-      <a href="https://wa.me/8801716744360" target="_blank" class="info-card">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-        </div>
-        <h4>Phone / WhatsApp</h4>
-        <p>+880 1716-744360</p>
-      </a>
-
-      <a href="mailto:mdbayzidhasan30b@gmail.com" class="info-card">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </div>
-        <h4>Email</h4>
-        <p>mdbayzidhasan30b@gmail.com</p>
-      </a>
-
-      <!-- 4th Card Updated to GitHub Link -->
-      <a href="https://github.com/mdbayzidhasan" target="_blank" class="info-card">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        </div>
-        <h4>GitHub Profile</h4>
-        <p>@mdbayzidhasan</p>
-      </a>
-    </div>
-
-    <!-- Contact Form & Get In Touch Container -->
-    <div class="contact-main-grid">
-      <!-- Contact Form -->
-      <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent!');">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" placeholder="Enter a valid email address" required>
-        </div>
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" placeholder="Enter your Name" required>
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" rows="3" placeholder="Enter your message" required></textarea>
-        </div>
-        <button type="submit" class="submit-btn">SUBMIT</button>
-      </form>
-
-      <!-- Get in touch info -->
-      <div class="get-in-touch">
-        <h3>Get in touch</h3>
-        <p>We can ensure reliability, clean code standards, and top-tier design quality with safety and satisfaction in mind.</p>
-        
-        <!-- All 4 Working Social Media Links -->
-        <div class="social-icons-row">
-          <!-- Facebook -->
-          <a href="https://www.facebook.com/share/1Jz3RfdA4f/" target="_blank" class="social-icon-btn" title="Facebook">
-            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          </a>
-
-          <!-- GitHub -->
-          <a href="https://github.com/mdbayzidhasan" target="_blank" class="social-icon-btn" title="GitHub">
-            <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          </a>
-
-          <!-- Instagram -->
-          <a href="https://www.instagram.com/mdbayzidhasan30b" target="_blank" class="social-icon-btn" title="Instagram">
-            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919
+      <span class="badge reveal-up"><span class="badge-dot"></span>Available for Web Projects</span>
+      <h1 class="reveal-up">Hey, I'm <span class="gold-gradient">Bayzid</span><br>Frontend D
