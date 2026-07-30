@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HM Bayzid Hasan | Front-End Developer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased">
+
+    <!-- Header / Navbar -->
+    <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-teal-400 tracking-wider">BAYZID<span class="text-white">.DEV</span></a>
+            <div class="space-x-6 hidden md:block text-slate-300 font-medium">
+                <a href="#about" class="hover:text-teal-400 transition">About</a>
+                <a href="#skills" class="hover:text-teal-400 transition">Skills</a>
+                <a href="#projects" class="hover:text-teal-400 transition">Projects</a>
+                <a href="#contact" class="hover:text-teal-400 transition">Contact</a>
+            </div>
+            <a href="https://wa.me/8801716744360" target="_blank" class="bg-teal-500 hover:bg-teal-600 text-slate-900 font-semibold px-4 py-2 rounded-lg transition shadow-lg shadow-teal-500/20">Hire Me</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 px-4">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-1 text-center md:text-left">
+                <span class="text-teal-400 font-semibold tracking-wide uppercase text-sm">Welcome to my portfolio</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold mt-2 mb-4 leading-tight">
+                    Hi, I'm <span class="text-teal-400">HM Bayzid Hasan</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl font-semibold text-slate-400 mb-6">
+                    Front-End Web Developer
+                </h2>
+                <p class="text-slate-400 max-w-lg mb-8 leading-relaxed">
+                    আমি আধুনিক, রেসপনসিভ এবং ইউজার-ফ্রেন্ডলি ওয়েব অ্যাপ্লিকেশন তৈরি করি। কোডিংয়ের মাধ্যমে ক্লায়েন্টের ধারণাকে বাস্তবে রূপ দেওয়া আমার মূল কাজ।
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                    <a href="https://wa.me/8801716744360" target="_blank" class="bg-teal-500 hover:bg-teal-600 text-slate-900 font-bold px-6 py-3 rounded-xl transition flex items-center gap-2">
+                        <i class="fab font-bold fa-whatsapp text-xl"></i> Let's Talk
+                    </a>
+                    <a href="https://github.com/mdbayzidhasan" target="_blank" class="border border-slate-700 hover:border-teal-400 text-slate-200 px-6 py-3 rounded-xl transition flex items-center gap-2">
+                        <i class="fab fa-github text-xl"></i> GitHub Profile
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Profile Image -->
+            <div class="flex-1 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-teal-400/50 shadow-2xl shadow-teal-500/20">
+                    <img src="profile.jpg" alt="HM Bayzid Hasan" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-slate-800/50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">My <span class="text-teal-400">Tech Stack</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-6 bg-slate-800 rounded-2xl border border-slate-700 hover:border-teal-400 transition">
+                    <i class="fab fa-html5 text-4xl text-orange-500 mb-3"></i>
+                    <h3 class="font-semibold text-lg">HTML5</h3>
+                </div>
+                <div class="p-6 bg-slate-800 rounded-2xl border border-slate-700 hover:border-teal-400 transition">
+                    <i class="fab fa-css3-alt text-4xl text-blue-500 mb-3"></i>
+                    <h3 class="font-semibold text-lg">CSS3 / Tailwind</h3>
+                </div>
+                <div class="p-6 bg-slate-800 rounded-2xl border border-slate-700 hover:border-teal-400 transition">
+                    <i class="fab fa-js text-4xl text-yellow-400 mb-3"></i>
+                    <h3 class="font-semibold text-lg">JavaScript</h3>
+                </div>
+                <div class="p-6 bg-slate-800 rounded-2xl border border-slate-700 hover:border-teal-400 transition">
+                    <i class="fab fa-react text-4xl text-teal-400 mb-3"></i>
+                    <h3 class="font-semibold text-lg">React JS</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Social Links Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Get In <span class="text-teal-400">Touch</span></h2>
+            <p class="text-slate-400 mb-8">নতুন কোনো প্রজেক্ট আলোচনা করতে চান? নিচে আমার সাথে যোগাযোগ করার মাধ্যমগুলো দেওয়া রয়েছে।</p>
+            
+            <div class="flex flex-wrap justify-center gap-6 mb-12">
+                <a href="mailto:mdbayzidhasan30b@gmail.com" class="flex items-center gap-3 bg-slate-800 border border-slate-700 px-6 py-4 rounded-xl hover:border-teal-400 transition">
+                    <i class="fas fa-envelope text-teal-400 text-xl"></i>
+                    <span class="text-slate-200">mdbayzidhasan30b@gmail.com</span>
+                </a>
+                <a href="https://wa.me/8801716744360" target="_blank" class="flex items-center gap-3 bg-slate-800 border border-slate-700 px-6 py-4 rounded-xl hover:border-teal-400 transition">
+                    <i class="fab fa-whatsapp text-teal-400 text-xl"></i>
+                    <span class="text-slate-200">+880 1716-744360</span>
+                </a>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="flex justify-center space-x-6">
+                <a href="https://github.com/mdbayzidhasan" target="_blank" class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 hover:text-teal-400 hover:bg-slate-700 transition">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/hm-bayzid-hasan-87a0b241a" target="_blank" class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 hover:text-teal-400 hover:bg-slate-700 transition">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1Jz3RfdA4f/" target="_blank" class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 hover:text-teal-400 hover:bg-slate-700 transition">
+                    <i class="fab fa-facebook-f text-xl"></i>
+                </a>
+                <a href="https://www.instagram.com/mdbayzidhasan30b" target="_blank" class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 hover:text-teal-400 hover:bg-slate-700 transition">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 border-t border-slate-800 text-center text-slate-500 text-sm">
+        <p>© 2026 HM Bayzid Hasan. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
