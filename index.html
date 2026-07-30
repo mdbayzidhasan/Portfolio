@@ -8,7 +8,7 @@
 <meta name="keywords" content="HM Bayzid Hasan, Bayzid Hasan, Frontend Developer Bangladesh, mdbayzidhasan30b, web developer portfolio">
 <meta property="og:title" content="HM Bayzid Hasan — Frontend Developer">
 <meta property="og:description" content="Frontend Developer from Bangladesh. Portfolio, projects and contact.">
-<meta property="og:image" content="src="IMG_20260605_170113_063.jpg">
+<meta property="og:image" content="IMG_20260605_170113_063.jpg">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -55,7 +55,7 @@
     66%{ transform:translate(-40px,60px) scale(0.94); }
     100%{ transform:translate(0,0) scale(1); }
   }
-  /* faint moving grid, subtle depth cue */
+
   .grid-layer{
     position:absolute; inset:0;
     background-image:
@@ -65,11 +65,10 @@
     -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
     mask-image:radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
   }
-  /* spotlight that follows the cursor */
+
   .spotlight{
     position:fixed; inset:0; z-index:2; pointer-events:none;
     background:radial-gradient(320px circle at var(--mx,50%) var(--my,20%), rgba(76,242,214,0.06), transparent 70%);
-    transition:background-position .1s linear;
   }
 
   .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
@@ -86,12 +85,7 @@
   .logo .tag{ color:var(--accent); }
   nav ul{ display:flex; gap:28px; list-style:none; }
   nav ul a{ font-size:14px; color:var(--muted); transition:color .2s; position:relative; padding-bottom:2px; }
-  nav ul a::after{
-    content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--accent);
-    transition:width .25s ease;
-  }
   nav ul a:hover{ color:var(--text); }
-  nav ul a:hover::after{ width:100%; }
   .nav-cta{
     border:1px solid var(--accent); color:var(--accent) !important;
     padding:7px 14px; border-radius:6px; font-family:'JetBrains Mono',monospace; font-size:13px;
@@ -132,25 +126,12 @@
     display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:8px;
     font-weight:600; font-size:14px; transition:transform .2s, box-shadow .2s;
   }
-  .btn-primary{ background:var(--accent); color:#0B0E14; animation:pulse-glow 2.6s ease-in-out infinite; }
-  .btn-primary:hover{ transform:translateY(-2px) scale(1.03); box-shadow:0 10px 34px -6px rgba(76,242,214,0.6); }
-  @keyframes pulse-glow{
-    0%,100%{ box-shadow:0 0 0 0 rgba(76,242,214,0.35); }
-    50%{ box-shadow:0 0 0 10px rgba(76,242,214,0); }
-  }
+  .btn-primary{ background:var(--accent); color:#0B0E14; }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 34px -6px rgba(76,242,214,0.6); }
   .btn-ghost{ border:1px solid var(--line); color:var(--text); }
   .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
 
-  /* hero entrance */
-  @keyframes fadeUp{ from{ opacity:0; transform:translateY(22px); } to{ opacity:1; transform:translateY(0); } }
-  .hero-in{ opacity:0; animation:fadeUp .8s ease forwards; }
-  .hero-in.d1{ animation-delay:.01s; }
-  .hero-in.d2{ animation-delay:.02s; }
-  .hero-in.d3{ animation-delay:.03s; }
-  .hero-in.d4{ animation-delay:.04s; }
-  .hero-in.d5{ animation-delay:.0.5s; }
-
-  /* editor window */
+  /* EDITOR */
   .editor{
     background:var(--surface); border:1px solid var(--line); border-radius:12px; overflow:hidden;
     box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
@@ -160,34 +141,35 @@
     border-bottom:1px solid var(--line);
   }
   .editor-dot{ width:10px; height:10px; border-radius:50%; }
-  .editor-bar .tabname{
-    margin-left:10px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);
-  }
-  .editor-body{ padding:22px 20px; font-family:'JetBrains Mono',monospace; font-size:13.5px; min-height:230px; }
+  .editor-bar .tabname{ margin-left:10px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); }
+  .editor-body{ padding:22px 20px; font-family:'JetBrains Mono',monospace; font-size:13.5px; min-height:200px; }
   .editor-body .ln{ color:#4b5568; display:inline-block; width:22px; user-select:none; }
   .code-key{ color:var(--accent-3); }
   .code-str{ color:var(--accent); }
   .code-num{ color:var(--accent-2); }
   .code-punc{ color:var(--muted); }
   .code-kw{ color:#F97583; }
-  #typed-line{ white-space:pre; }
-  .cursor{ display:inline-block; width:7px; height:16px; background:var(--accent); vertical-align:middle; animation:blink 1s step-end infinite; }
+  .cursor{ display:inline-block; width:7px; height:15px; background:var(--accent); vertical-align:middle; animation:blink 1s step-end infinite; }
   @keyframes blink{ 50%{ opacity:0; } }
 
-  /* photo card */
+  /* SECTION */
+  section{ padding:70px 0; border-top:1px solid var(--line); position:relative; }
+  .section-head{ margin-bottom:36px; }
+  .section-num{ font-family:'JetBrains Mono',monospace; color:var(--accent); font-size:13px; margin-bottom:8px; display:block; }
+  .section-head h2{ font-size:clamp(24px,3.4vw,34px); }
+  .section-head p{ color:var(--muted); margin-top:10px; max-width:560px; }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  @media (max-width:780px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-grid p{ color:var(--muted); margin-bottom:16px; }
+  .about-grid strong{ color:var(--text); }
+  
   .photo-wrap{ position:relative; display:flex; justify-content:center; }
-  .photo-wrap::before{
-    content:''; position:absolute; width:280px; height:280px; border-radius:50%;
-    background:conic-gradient(from 0deg, var(--accent), var(--accent-3), var(--accent-2), var(--accent));
-    filter:blur(38px); opacity:0.35; z-index:0; animation:spin 8s linear infinite;
-  }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
   .photo-card{
     position:relative; z-index:1; width:100%; max-width:300px; border-radius:16px; overflow:hidden;
     border:1px solid var(--line); box-shadow:0 30px 60px -20px rgba(0,0,0,0.7);
-    transition:transform .4s ease;
   }
-  .photo-card:hover{ transform:translateY(-6px) rotate(-1deg); }
   .photo-card img{ width:100%; display:block; aspect-ratio:3/4; object-fit:cover; }
   .photo-tag{
     position:absolute; bottom:12px; left:12px; right:12px;
@@ -196,21 +178,6 @@
     font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--accent);
   }
 
-  /* SECTION shared */
-  section{ padding:70px 0; border-top:1px solid var(--line); position:relative; }
-  .section-head{ margin-bottom:36px; }
-  .section-num{ font-family:'JetBrains Mono',monospace; color:var(--accent); font-size:13px; margin-bottom:8px; display:block; }
-  .section-head h2{ font-size:clamp(24px,3.4vw,34px); }
-  .section-head p{ color:var(--muted); margin-top:10px; max-width:560px; }
-
-  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
-  .reveal.show{ opacity:1; transform:translateY(0); }
-
-  /* ABOUT */
-  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
-  @media (max-width:780px){ .about-grid{ grid-template-columns:1fr; } }
-  .about-grid p{ color:var(--muted); margin-bottom:16px; }
-  .about-grid strong{ color:var(--text); }
   .stat-list{ display:flex; flex-direction:column; gap:18px; }
   .stat{ display:flex; align-items:baseline; gap:14px; border-bottom:1px dashed var(--line); padding-bottom:14px; }
   .stat .num{ font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; color:var(--accent); min-width:60px; }
@@ -220,21 +187,18 @@
   .skill-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
   .skill-card{
     background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px;
-    transition:transform .25s, border-color .25s;
   }
-  .skill-card:hover{ transform:translateY(-4px); border-color:var(--accent); }
   .skill-card .head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
   .skill-card h3{ font-size:16px; }
   .skill-card .pct{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); }
   .bar{ height:6px; background:var(--surface-alt); border-radius:4px; overflow:hidden; }
-  .bar-fill{ height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-3)); width:0%; border-radius:4px; transition:width 1.4s cubic-bezier(.16,1,.3,1); }
+  .bar-fill{ height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-3)); border-radius:4px; }
 
   .tag-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:30px; }
   .tag-pill{
     font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted);
-    border:1px solid var(--line); padding:7px 14px; border-radius:20px; transition:all .2s;
+    border:1px solid var(--line); padding:7px 14px; border-radius:20px;
   }
-  .tag-pill:hover{ color:var(--accent); border-color:var(--accent); }
 
   /* CONTACT */
   .contact-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
@@ -242,7 +206,7 @@
     background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px;
     display:flex; align-items:center; gap:14px; transition:all .25s;
   }
-  .contact-card:hover{ transform:translateY(-4px); border-color:var(--accent); box-shadow:0 16px 40px -20px rgba(94,234,212,0.4); }
+  .contact-card:hover{ border-color:var(--accent); transform:translateY(-2px); }
   .c-icon{
     width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center;
     font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; flex-shrink:0;
@@ -253,20 +217,16 @@
   footer{ padding:36px 0; border-top:1px solid var(--line); }
   footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
   footer p{ color:var(--muted); font-size:13px; font-family:'JetBrains Mono',monospace; }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation:none !important; transition:none !important; }
-  }
 </style>
 </head>
 <body>
+
 <div class="glow">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
   <div class="grid-layer"></div>
 </div>
-<div class="spotlight" id="spotlight"></div>
 
 <nav>
   <div class="wrap">
@@ -283,40 +243,44 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow hero-in d1"><span class="dot"></span> Available for freelance work</div>
-      <h1 class="hero-in d2">Building clean, fast<br>frontend <span>experiences</span>.</h1>
-      <p class="lede hero-in d3">I'm <strong style="color:var(--text)">HM Bayzid Hasan</strong>, a Frontend Developer from Bangladesh. I turn designs into responsive, pixel-accurate, high-performance websites.</p>
-      <div class="hero-actions hero-in d4">
+      <div class="eyebrow"><span class="dot"></span> Available for freelance work</div>
+      <h1>Building clean, fast<br>frontend <span>experiences</span>.</h1>
+      <p class="lede">I'm <strong style="color:var(--text)">HM Bayzid Hasan</strong>, a Frontend Developer from Bangladesh. I turn designs into responsive, pixel-accurate, high-performance websites.</p>
+      <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">Start a project →</a>
         <a href="https://github.com/mdbayzidhasan" target="_blank" rel="noopener" class="btn btn-ghost">View GitHub</a>
       </div>
     </div>
 
-    <div class="editor hero-in d5">
+    <div class="editor">
       <div class="editor-bar">
         <span class="editor-dot" style="background:#F97583"></span>
         <span class="editor-dot" style="background:#F4A93B"></span>
         <span class="editor-dot" style="background:#5EEAD4"></span>
         <span class="tabname">developer.js</span>
       </div>
-      <div class="editor-body" id="editorBody">
-<div><span class="ln">1</span><span class="code-kw">const</span> <span class="code-key">developer</span> <span class="code-punc">=</span> <span class="code-punc">{</span></div>
-<div id="typed-line"></div>
-</div>
+      <div class="editor-body">
+        <div><span class="ln">1</span><span class="code-kw">const</span> <span class="code-key">developer</span> = <span class="code-punc">{</span></div>
+        <div><span class="ln">2</span>&nbsp;&nbsp;<span class="code-key">name</span>: <span class="code-str">'HM Bayzid Hasan'</span>,</div>
+        <div><span class="ln">3</span>&nbsp;&nbsp;<span class="code-key">role</span>: <span class="code-str">'Frontend Developer'</span>,</div>
+        <div><span class="ln">4</span>&nbsp;&nbsp;<span class="code-key">location</span>: <span class="code-str">'Bangladesh'</span>,</div>
+        <div><span class="ln">5</span>&nbsp;&nbsp;<span class="code-key">available</span>: <span class="code-kw">true</span></div>
+        <div><span class="ln">6</span><span class="code-punc">};</span> <span class="cursor"></span></div>
+      </div>
     </div>
   </div>
 </header>
 
 <section id="about">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head">
       <span class="section-num">01 · About</span>
       <h2>Someone who ships clean code.</h2>
     </div>
-    <div class="about-grid reveal">
+    <div class="about-grid">
       <div class="photo-wrap">
         <div class="photo-card">
-          <img src="profile.jpg" alt="HM Bayzid Hasan, Frontend Developer" loading="lazy">
+          <img src="profile.jpg" alt="HM Bayzid Hasan, Frontend Developer">
           <div class="photo-tag">📍 Bangladesh · Frontend Developer</div>
         </div>
       </div>
@@ -336,39 +300,39 @@
 
 <section id="skills">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head">
       <span class="section-num">02 · Skills</span>
       <h2>What I work with.</h2>
       <p>The core stack I use to build and ship frontend projects.</p>
     </div>
-    <div class="skill-grid reveal">
+    <div class="skill-grid">
       <div class="skill-card">
         <div class="head"><h3>HTML5</h3><span class="pct">95%</span></div>
-        <div class="bar"><div class="bar-fill" data-width="95"></div></div>
+        <div class="bar"><div class="bar-fill" style="width: 95%;"></div></div>
       </div>
       <div class="skill-card">
         <div class="head"><h3>CSS3</h3><span class="pct">90%</span></div>
-        <div class="bar"><div class="bar-fill" data-width="90"></div></div>
+        <div class="bar"><div class="bar-fill" style="width: 90%;"></div></div>
       </div>
       <div class="skill-card">
         <div class="head"><h3>JavaScript</h3><span class="pct">85%</span></div>
-        <div class="bar"><div class="bar-fill" data-width="85"></div></div>
+        <div class="bar"><div class="bar-fill" style="width: 85%;"></div></div>
       </div>
       <div class="skill-card">
         <div class="head"><h3>Responsive Design</h3><span class="pct">90%</span></div>
-        <div class="bar"><div class="bar-fill" data-width="90"></div></div>
+        <div class="bar"><div class="bar-fill" style="width: 90%;"></div></div>
       </div>
       <div class="skill-card">
         <div class="head"><h3>Git &amp; GitHub</h3><span class="pct">80%</span></div>
-        <div class="bar"><div class="bar-fill" data-width="80"></div></div>
+        <div class="bar"><div class="bar-fill" style="width: 80%;"></div></div>
       </div>
       <div class="skill-card">
         <div class="head"><h3>UI/UX Basics</h3><span class="pct">75%</span></div>
-        <div class="bar"><div class="bar-fill" data-width="75"></div></div>
+        <div class="bar"><div class="bar-fill" style="width: 75%;"></div></div>
       </div>
     </div>
 
-    <div class="tag-row reveal">
+    <div class="tag-row">
       <span class="tag-pill">React</span>
       <span class="tag-pill">Tailwind CSS</span>
       <span class="tag-pill">Bootstrap</span>
@@ -382,13 +346,13 @@
 
 <section id="contact">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head">
       <span class="section-num">03 · Contact</span>
       <h2>Let's work together.</h2>
       <p>Have a project in mind? Reach out through any of these — I usually reply within a day.</p>
     </div>
 
-    <div class="contact-grid reveal">
+    <div class="contact-grid">
       <a class="contact-card" href="mailto:mdbayzidhasan30b@gmail.com">
         <div class="c-icon" style="background:rgba(244,169,59,0.15); color:#F4A93B;">@</div>
         <div class="c-body"><div class="c-label">EMAIL</div><div class="c-value">mdbayzidhasan30b@gmail.com</div></div>
@@ -407,4 +371,23 @@
       </a>
       <a class="contact-card" href="https://www.facebook.com/share/1Jz3RfdA4f/" target="_blank" rel="noopener">
         <div class="c-icon" style="background:rgba(94,234,212,0.15); color:#5EEAD4;">f</div>
-        <div 
+        <div class="c-body"><div class="c-label">FACEBOOK</div><div class="c-value">Bayzid Hasan</div></div>
+      </a>
+      <a class="contact-card" href="https://www.instagram.com/mdbayzidhasan30b" target="_blank" rel="noopener">
+        <div class="c-icon" style="background:rgba(212,140,255,0.15); color:#D48CFF;">ig</div>
+        <div class="c-body"><div class="c-label">INSTAGRAM</div><div class="c-value">mdbayzidhasan30b</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 HM Bayzid Hasan. All rights reserved.</p>
+    <p>Designed & Built in Bangladesh</p>
+  </div>
+</footer>
+
+</body>
+  </html>
+  
